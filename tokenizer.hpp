@@ -50,6 +50,7 @@ public:
       {[(int)SymbolType::RightShift] = ">>",
        [(int)SymbolType::LeftShift] = "<<", [(int)SymbolType::Plus] = "+",
        [(int)SymbolType::Empty] = ""}};
+  // TODO use compile time expression for this hacky var
   const static int maxNameLen =
       strlen(SymbolToken::symbolNames[(int)SymbolType::RightShift]);
 
