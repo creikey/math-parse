@@ -1,6 +1,7 @@
+#include "parser.hpp"
 #include <iostream>
 
-int main(int argc, char ** argv) {
-  Parser prs(std::cin);
+int main(int argc, char **argv) {
+  Parser prs(&std::cin);
   prs.readln();
 }
