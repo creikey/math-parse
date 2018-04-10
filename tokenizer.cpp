@@ -1,10 +1,10 @@
 #include "tokenizer.hpp"
+#include <cstring>
 #include <limits.h>
 
 Token *Token::parseToken(cmn::pos inPos, std::string inString) {
   Token *toReturn;
-  for (std::string::iterator i = inString.begin() + inPos.column;
-       i < inString.end(); i++) {
+  for (auto i = inString.begin() + inPos.column; i < inString.end(); i++) {
     if (NumberToken::isNumber(*i)) {
       toReturn = new NumberToken(&inPos, inString);
     } else if (SymbolToken::isSymbol(*i)) {
@@ -28,7 +28,7 @@ NumberToken::NumberToken() {
 
 NumberToken::NumberToken(cmn::pos *inPos, std::string inString) {
   std::string toSet = "";
-  for (std::string::iterator i = inString.begin() + inPos->column;
+  for (auto i = inString.begin() + inPos->column;
        i != inString.end() && NumberToken::isNumber(*i); i++) {
     toSet.append(1, *i);
   }
@@ -109,13 +109,25 @@ SymbolToken::SymbolToken() {
 SymbolToken::SymbolToken(cmn::pos *inPos, SymbolType inType) {
   this->mySymbolType = inType;
   this->myPos = *inPos;
-  inPos->column += this->symbolNames[(int)inType].size();
+  inPos->column += strlen(this->symbolNames[(int)inType]);
 }
 
-SymbolToken::SymbolToken(cmn::pos *inPos, std::string inString) {}
+SymbolToken::SymbolToken(cmn::pos *inPos, std::string inString) {
+  std::string buff = "";
+  while (buff.size() <= SymbolToken::maxNameLen) {
+  }
+}
 
 SymbolToken::SymbolType SymbolToken::getSymbolType() {
   return this->mySymbolType;
 };
 
-bool SymbolToken::isSymbol(char inChar) { return false; };
+bool SymbolToken::isSymbol(char inChar) {
+  for (auto i = SymbolToken::symbolNames.begin();
+       i != SymbolToken::symbolNames.end(); i++) {
+    if (*i[0] == inChar) {
+      return true;
+    }
+  }
+  return false;
+};

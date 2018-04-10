@@ -3,6 +3,7 @@
 
 #include "common.hpp"
 #include <array>
+#include <cstring>
 #include <string>
 #include <vector>
 
@@ -45,16 +46,12 @@ public:
   SymbolToken(cmn::pos *, std::string);
   SymbolType getSymbolType();
   static bool isSymbol(char);
-  /*static const constexpr std::array<std::string, 4> symbolNames{
+  static const constexpr std::array<const char *, 4> symbolNames{
       {[(int)SymbolType::RightShift] = ">>",
        [(int)SymbolType::LeftShift] = "<<", [(int)SymbolType::Plus] = "+",
-       [(int)SymbolType::Empty] = ""}};*/
-  static const constexpr char *symbolNames[4] = {[(int)SymbolType::RightShift] =
-                                                     ">>",
-                                                 [(int)SymbolType::LeftShift] =
-                                                     "<<",
-                                                 [(int)SymbolType::Plus] = "+",
-                                                 [(int)SymbolType::Empty] = ""};
+       [(int)SymbolType::Empty] = ""}};
+  const static int maxNameLen =
+      strlen(SymbolToken::symbolNames[(int)SymbolType::RightShift]);
 
 private:
   cmn::pos myPos;
