@@ -114,7 +114,22 @@ SymbolToken::SymbolToken(cmn::pos *inPos, SymbolType inType) {
 
 SymbolToken::SymbolToken(cmn::pos *inPos, std::string inString) {
   std::string buff = "";
+  SymbolToken::SymbolType getType = SymbolToken::SymbolType::Unknown;
   while (buff.size() <= SymbolToken::maxNameLen) {
+
+    char toAppend = inString[inPos->column + buff.size()];
+    if (SymbolToken::isSymbol(toAppend)) {
+      buff.append(1, toAppend);
+      for (auto i = SymbolToken::symbolNames.begin();
+           i != SymbolToken::symbolNames.end(); i++) {
+        if (*i == buff) {
+          getType =
+              (SymbolToken::SymbolType)(i - SymbolToken::symbolNames.begin());
+          break;
+        }
+      }
+    } else {
+    }
   }
 }
 

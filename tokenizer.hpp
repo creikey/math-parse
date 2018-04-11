@@ -37,7 +37,7 @@ private:
 
 class SymbolToken : public Token {
 public:
-  enum class SymbolType { RightShift, LeftShift, Plus, Empty };
+  enum class SymbolType { RightShift, LeftShift, Plus, Empty, Unknown };
   std::string getString();
   cmn::pos getPos();
   TokenType getType();
